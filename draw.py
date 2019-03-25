@@ -14,6 +14,18 @@ def draw_polygons( polygons, screen, color ):
 
     point = 0
     while point < len(polygons) - 2:
+        val0 = [polygons[point+1][0]-polygons[point][0],
+                polygons[point+1][1]-polygons[point][1],
+                polygons[point+1][2]-polygons[point][2]]
+        val1 = [polygons[point+2][0]-polygons[point][0],
+                polygons[point+2][1]-polygons[point][1],
+                polygons[point+2][2]-polygons[point][2]]
+        n = [val0[0]*val1[0],
+             val0[1]*val1[1],
+             val0[2]*val1[2]]
+        v=[0,0,1]
+
+        if n[0]*v[0]+
         draw_line( int(polygons[point][0]),
                    int(polygons[point][1]),
                    int(polygons[point+1][0]),
@@ -90,10 +102,10 @@ def add_sphere(polygons, cx, cy, cz, r, step ):
                                 points[next_c][i+1][0],
                                 points[next_c][i+1][1],
                                 points[next_c][i+1][2],
-                                points[circle][i+2][0],
-                                points[circle][i+2][1],
-                                points[circle][i+2][2],)
-             i += 2 #try 1 --------------------------------------
+                                points[circle][i+1][0],
+                                points[circle][i+1][1],
+                                points[circle][i+1][2],)
+             i += 1 #try 1 --------------------------------------
         circle+= 1
 
 def generate_sphere( cx, cy, cz, r, step ):
@@ -156,17 +168,17 @@ def add_torus(polygons, cx, cy, cz, r0, r1, step ):
                                     points[circle][0][1],
                                     points[circle][0][2],)
             else:
-                add_polygon(polygons, points[circle][i][0],
+                 add_polygon(polygons, points[circle][i][0],
                                     points[circle][i][1],
                                     points[circle][i][2],
                                     points[next_c][i+1][0],
                                     points[next_c][i+1][1],
                                     points[next_c][i+1][2],
-                                    points[circle][i+2][0],
-                                    points[circle][i+2][1],
-                                    points[circle][i+2][2],)
-            i += 2 #try 1 ------------------------------------------
-        circle+= 1
+                                    points[circle][i+1][0],
+                                    points[circle][i+1][1],
+                                    points[circle][i+1][2],)
+                 i += 1 #try 1 --------------------------------------
+            circle+= 1
 
 def generate_torus( cx, cy, cz, r0, r1, step ):
     points = []
