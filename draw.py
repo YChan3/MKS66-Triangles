@@ -55,26 +55,22 @@ def add_box( polygons, x, y, z, width, height, depth ):
     #front
     add_polygon(polygons, x, y, z, x, y1, z, x1, y1, z)
     add_polygon(polygons, x1, y1, z, x1, y, z, x, y, z)
-    #
-    # #back
-    # add_polygon(polygons, x1, y, z1, x, y, z1, x, y1, z1)
-    # add_polygon(polygons, x, y1, z1, x1, y1, z1, x1, y, z1)
-    #
-    #left side
+    #Top
+    add_polygon(polygons, x, y, z1, x, y1, z1, x, y1, z)
+    add_polygon(polygons, x, y1, z, x, y, z, x, y, z1)
+    #Left
+    add_polygon(polygons, x, y, z1, x, y, z, x1, y, z)
+    add_polygon(polygons, x1, y, z, x1, y, z1, x, y, z1)
+    #Right
+    add_polygon(polygons, x1, y, z, x1, y1, z, x1, y1, z1)
+    add_polygon(polygons, x1, y1, z1, x1, y, z1, x1, y, z)
+    #back
     add_polygon(polygons, x1, y, z1, x1, y1, z1, x, y1, z1)
     add_polygon(polygons, x, y1, z1, x, y, z1, x1, y, z1)
-    #
-    # #right side
-    # add_polygon(polygons, x1, y, z, x1, y, z1, x1, y1, z1)
-    # add_polygon(polygons, x1, y1, z1, x1, y1, z, x1, y, z)
-    #
-    #top side
-    add_polygon(polygons, x, y1, z, x1, y1, z, x1, y1, z1)
-    add_polygon(polygons, x1, y1, z1, x, y1, z1, x, y1, z)
-    #
-    # #bottom side
-    # add_polygon(polygons, x, y, z, x1, y, z1, x1, y, z1)
-    # add_polygon(polygons, x1, y, z1, x1, y, z, x, y, z)
+    #bottom
+    add_polygon(polygons, x, y1, z, x, y1, z1, x1, y1, z1)
+    add_polygon(polygons, x1, y1, z1, x1, y1, z, x, y1, z)
+
 
 def add_sphere(polygons, cx, cy, cz, r, step ):
     points = generate_sphere(cx, cy, cz, r, step)
@@ -103,17 +99,30 @@ def add_sphere(polygons, cx, cy, cz, r, step ):
         if circle == len(points) - 1:
             next_c = 0
         i = 0
-        while i < len(points[circle]) - 2:
-             add_polygon(polygons, points[circle][i][0],
-                                points[circle][i][1],
-                                points[circle][i][2],
-                                points[next_c][i+1][0],
-                                points[next_c][i+1][1],
-                                points[next_c][i+1][2],
-                                points[circle][i+1][0],
-                                points[circle][i+1][1],
-                                points[circle][i+1][2],)
-             i += 1 #try 1 --------------------------------------
+        while i < len(points[circle]):
+            print (len(points[circle]))
+            print (i)
+            if i >= len(points[circle]) - 1:
+                add_polygon(polygons, points[circle][i][0],
+                                    points[circle][i][1],
+                                    points[circle][i][2],
+                                    points[next_c][0][0],
+                                    points[next_c][0][1],
+                                    points[next_c][0][2],
+                                    points[circle][0][0],
+                                    points[circle][0][1],
+                                    points[circle][0][2])
+            else:
+                 add_polygon(polygons, points[circle][i][0],
+                                    points[circle][i][1],
+                                    points[circle][i][2],
+                                    points[next_c][i+1][0],
+                                    points[next_c][i+1][1],
+                                    points[next_c][i+1][2],
+                                    points[circle][i+1][0],
+                                    points[circle][i+1][1],
+                                    points[circle][i+1][2])
+            i += 1 #try 1 --------------------------------------
         circle+= 1
 
 def generate_sphere( cx, cy, cz, r, step ):
@@ -164,17 +173,19 @@ def add_torus(polygons, cx, cy, cz, r0, r1, step ):
         if circle == len(points) - 1:
             next_c = 0
         i = 0
-        while i < len(points[circle]) - 1:
-            if i >= len(points[circle]) - 2:
+        while i < len(points[circle]):
+            print (len(points[circle]))
+            print (i)
+            if i >= len(points[circle]) - 1:
                 add_polygon(polygons, points[circle][i][0],
                                     points[circle][i][1],
                                     points[circle][i][2],
-                                    points[next_c][i+1][0],
-                                    points[next_c][i+1][1],
-                                    points[next_c][i+1][2],
+                                    points[next_c][0][0],
+                                    points[next_c][0][1],
+                                    points[next_c][0][2],
                                     points[circle][0][0],
                                     points[circle][0][1],
-                                    points[circle][0][2],)
+                                    points[circle][0][2])
             else:
                  add_polygon(polygons, points[circle][i][0],
                                     points[circle][i][1],
@@ -184,9 +195,9 @@ def add_torus(polygons, cx, cy, cz, r0, r1, step ):
                                     points[next_c][i+1][2],
                                     points[circle][i+1][0],
                                     points[circle][i+1][1],
-                                    points[circle][i+1][2],)
-                 i += 1 #try 1 --------------------------------------
-            circle+= 1
+                                    points[circle][i+1][2])
+            i += 1 #try 1 --------------------------------------
+        circle+= 1
 
 def generate_torus( cx, cy, cz, r0, r1, step ):
     points = []
