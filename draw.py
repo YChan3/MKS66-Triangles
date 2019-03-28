@@ -122,6 +122,15 @@ def add_sphere(polygons, cx, cy, cz, r, step ):
                                     points[circle][i+1][0],
                                     points[circle][i+1][1],
                                     points[circle][i+1][2])
+                add_polygon(polygons, points[next_c][i][0],
+                                    points[next_c][i][1],
+                                   points[next_c][i][2],
+                                   points[circle][i+1][0],
+                                   points[circle][i+1][1],
+                                   points[circle][i+1][2],
+                                   points[next_c][i+1][0],
+                                   points[next_c][i+1][1],
+                                   points[nextc][i+1][2])
             i += 1 #try 1 --------------------------------------
         circle+= 1
 
